@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ApiContext from '../ApiContext'
 import config from '../config'
 import './Note.css'
-sdfasdfadf
+
 export default class Note extends React.Component {
   static defaultProps ={
     onDeleteNote: () => {},
