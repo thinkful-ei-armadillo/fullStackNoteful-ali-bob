@@ -7,6 +7,7 @@ import NoteListMain from '../NoteListMain/NoteListMain'
 import NotePageMain from '../NotePageMain/NotePageMain'
 import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
+import EditNote from '../EditNote/EditNote'
 import ApiContext from '../ApiContext'
 import config from '../config'
 import './App.css'
@@ -47,6 +48,12 @@ class App extends Component {
         ...this.state.folders,
         folder
       ]
+    })
+  }
+
+  handleEditNote = note => {
+    this.setState({
+      notes: [...this.state.notes, ]
     })
   }
 
@@ -92,6 +99,10 @@ class App extends Component {
           path='/add-note'
           component={NotePageNav}
         />
+        <Route
+          path='/edit-note'
+          component={NotePageNav}
+        />
       </>
     )
   }
@@ -122,6 +133,10 @@ class App extends Component {
         <Route
           path='/add-note'
           component={AddNote}
+        />
+        <Route
+          path='/edit-note'
+          component={EditNote}
         />
       </>
     )

@@ -28,3 +28,11 @@
 {"message":"Created note with id 12.","level":"info"}
 {"message":"Note with id 4 deleted.","level":"info"}
 {"message":"Note with id 10 deleted.","level":"info"}
+{"message":"Created folder with id 6.","level":"info"}
+{"message":"Created note with id 13.","level":"info"}
+{"message":"Note with id 11 deleted.","level":"info"}
+{"message":"Created note with id 14.","level":"info"}
+{"message":"Note with id 14 deleted.","level":"info"}
+{"message":"Note with id 13 updated.","level":"info"}
+{"message":"Created folder with id 7.","level":"info"}
+{"message":"Folder with id 6 updated.","level":"info"}

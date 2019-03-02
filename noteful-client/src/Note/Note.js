@@ -21,7 +21,7 @@ export default class Note extends React.Component {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
-      },
+      }, 
     })
       .then(() => {
         console.log(this.props);
