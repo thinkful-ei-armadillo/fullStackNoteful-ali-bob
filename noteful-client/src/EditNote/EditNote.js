@@ -1,82 +1,75 @@
-import React, { Component } from 'react'
-import NotefulForm from '../NotefulForm/NotefulForm'
-import ApiContext from '../ApiContext'
-import config from '../config'
+import React, { Component } from "react";
+import NotefulForm from "../NotefulForm/NotefulForm";
+import ApiContext from "../ApiContext";
+import config from "../config";
 
-export default class AddNote extends Component {
+export default class EditNote extends Component {
   static defaultProps = {
     history: {
-      push: () => { }
-    },
-  }
+      push: () => {}
+    }
+  };
   static contextType = ApiContext;
 
-  handleSubmit = e => {
-    e.preventDefault()
+  handleEdit = e => {
+    e.preventDefault();
+    const noteId = this.props.id;
+    console.log("noteid", noteId);
     const newNote = {
-      name: e.target['note-name'].value,
-      content: e.target['note-content'].value,
-      folder_id: e.target['note-folder-id'].value,
-      modified: new Date().toDateString(),
-    }
-    fetch(`${config.API_ENDPOINT}/api/notes`, {
-      method: 'POST',
+      name: e.target["note-name"].value,
+      content: e.target["note-content"].value,
+      folder_id: e.target["note-folder-id"].value,
+      modified: new Date().toDateString()
+    };
+    fetch(`${config.API_ENDPOINT}/api/notes${noteId}`, {
+      method: "PATCH",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json"
       },
-      body: JSON.stringify(newNote),
+      body: JSON.stringify(newNote)
     })
       .then(res => {
-        if (!res.ok)
-          return res.json().then(e => Promise.reject(e))
-        return res.json()
+        if (!res.ok) return res.json().then(e => Promise.reject(e));
+        return res.json();
       })
       .then(note => {
-        this.context.addNote(note)
-        this.props.history.push(`/folder/${note.folder_id}`)
+        this.context.editNote(noteId, newNote);
+        this.props.history.push(`/folder/${note.folder_id}`);
       })
       .catch(error => {
-        console.error({ error })
-      })
-  }
+        console.error({ error });
+      });
+  };
 
   render() {
-    const { folders = [] } = this.context
+    const { folders = [] } = this.context;
     return (
-      <section className='AddNote'>
+      <section className="EditNote">
         <h2>Edit a note</h2>
-        <NotefulForm onSubmit={this.handleSubmit}>
-          <div className='field'>
-            <label htmlFor='note-name-input'>
-              Name
-            </label>
-            <input type='text' id='note-name-input' name='note-name' />
+        <NotefulForm onSubmit={this.handleEdit}>
+          <div className="field">
+            <label htmlFor="note-name-input">Name</label>
+            <input type="text" id="note-name-input" name="note-name" />
           </div>
-          <div className='field'>
-            <label htmlFor='note-content-input'>
-              Content
-            </label>
-            <textarea id='note-content-input' name='note-content' />
+          <div className="field">
+            <label htmlFor="note-content-input">Content</label>
+            <textarea id="note-content-input" name="note-content" />
           </div>
-          <div className='field'>
-            <label htmlFor='note-folder-select'>
-              Folder
-            </label>
-            <select id='note-folder-select' name='note-folder-id'>
-              {folders.map(folder =>
+          <div className="field">
+            <label htmlFor="note-folder-select">Folder</label>
+            <select id="note-folder-select" name="note-folder-id">
+              {folders.map(folder => (
                 <option key={folder.id} value={folder.id}>
                   {folder.name}
                 </option>
-              )}
+              ))}
             </select>
           </div>
-          <div className='buttons'>
-            <button type='submit'>
-              Add note
-            </button>
+          <div className="buttons">
+            <button type="submit">Edit note</button>
           </div>
         </NotefulForm>
       </section>
-    )
+    );
   }
 }
